@@ -1,13 +1,21 @@
-name: club_sign
+name: zheckin
 version: 0.1.0
 
 authors:
   - Hentioe <me@bluerain.io>
 
 targets:
-  club_sign:
-    main: src/club_sign.cr
+  zheckin:
+    main: src/zheckin.cr
 
-crystal: 0.32.0
+crystal: 0.32.1
 
 license: MIT
+
+dependencies:
+  clicr:
+    github: j8r/clicr
+  kemal:
+    github: kemalcr/kemal
+  jwt:
+    github: crystal-community/jwt

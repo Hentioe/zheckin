@@ -1,7 +1,6 @@
 require "./spec_helper"
 
-describe ClubSign do
-
+describe Zheckin do
   it "works" do
     true.should eq(true)
   end

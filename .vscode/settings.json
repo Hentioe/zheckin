@@ -1,0 +1,4 @@
+{
+    "crystal-lang.problems": "build",
+    "crystal-lang.mainFile": "${workspaceRoot}/src/zheckin.cr"
+}

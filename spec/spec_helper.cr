@@ -1,2 +1,2 @@
 require "spec"
-require "../src/club_sign"
+require "../src/zheckin"

@@ -1,0 +1,38 @@
+{
+  // 有关 tasks.json 格式的文档，请参见
+  // https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "starting",
+      "type": "process",
+      "command": "crystal",
+      "options": {
+        "env": {
+          "ZHECKIN_ADMIN_EMAIL": "zheckin@bluerain.io",
+          "ZHECKIN_ADMIN_PASSWORD": "demo123",
+          "ZHECKIN_BASE_SECRET_KEY": "secret123"
+        }
+      },
+      "args": [
+        "run",
+        "src/zheckin.cr"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "testing",
+      "type": "process",
+      "command": "crystal",
+      "options": {
+        "env": {
+          "ZHECKIN_ENV": "test"
+        }
+      },
+      "args": [
+        "spec"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

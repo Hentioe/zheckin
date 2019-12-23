@@ -1,4 +1,3 @@
-module ClubSign
+module Zheckin
   VERSION = "0.1.0"
-
 end
