@@ -19,3 +19,11 @@ dependencies:
     github: kemalcr/kemal
   jwt:
     github: crystal-community/jwt
+  sam:
+    github: imdrasil/sam.cr
+  jennifer:
+    github: imdrasil/jennifer.cr
+    version: "~> 0.8.4"
+  jennifer_sqlite3_adapter:
+    github: Hentioe/jennifer_sqlite3_adapter
+    branch: bugfix

@@ -8,9 +8,33 @@ shards:
     github: j8r/clicr
     version: 0.7.0
 
+  db:
+    github: crystal-lang/crystal-db
+    version: 0.7.0
+
   exception_page:
     github: crystal-loot/exception_page
     version: 0.1.2
+
+  i18n:
+    github: TechMagister/i18n.cr
+    version: 0.3.1
+
+  ifrit:
+    github: imdrasil/ifrit
+    version: 0.1.2
+
+  inflector:
+    github: phoffer/inflector.cr
+    version: 0.1.8
+
+  jennifer:
+    github: imdrasil/jennifer.cr
+    version: 0.8.4
+
+  jennifer_sqlite3_adapter:
+    github: Hentioe/jennifer_sqlite3_adapter
+    commit: 58a8dd74279f3d3e6cfbeb14384e40657c96ad9a
 
   jwt:
     github: crystal-community/jwt
@@ -31,4 +55,12 @@ shards:
   radix:
     github: luislavena/radix
     version: 0.3.9
+
+  sam:
+    github: imdrasil/sam.cr
+    version: 0.3.2
+
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+    version: 0.14.0
 
