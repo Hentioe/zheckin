@@ -1,0 +1,13 @@
+name: club_sign
+version: 0.1.0
+
+authors:
+  - Hentioe <me@bluerain.io>
+
+targets:
+  club_sign:
+    main: src/club_sign.cr
+
+crystal: 0.32.0
+
+license: MIT
