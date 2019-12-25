@@ -21,6 +21,41 @@
       "problemMatcher": []
     },
     {
+      "label": "db: reset",
+      "type": "process",
+      "command": "crystal",
+      "args": [
+        "sam.cr",
+        "--",
+        "db:create",
+        "@",
+        "db:drop",
+        "@",
+        "db:setup"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "db: reset(test)",
+      "type": "process",
+      "command": "crystal",
+      "options": {
+        "env": {
+          "VEEMOE_CLOUD_ENV": "test"
+        }
+      },
+      "args": [
+        "sam.cr",
+        "--",
+        "db:create",
+        "@",
+        "db:drop",
+        "@",
+        "db:setup"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "testing",
       "type": "process",
       "command": "crystal",
@@ -31,6 +66,9 @@
       },
       "args": [
         "spec"
+      ],
+      "dependsOn": [
+        "db: reset(test)"
       ],
       "problemMatcher": []
     }

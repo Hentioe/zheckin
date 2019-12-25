@@ -22,8 +22,8 @@ dependencies:
   sam:
     github: imdrasil/sam.cr
   jennifer:
-    github: imdrasil/jennifer.cr
-    version: "~> 0.8.4"
+    github: Hentioe/jennifer.cr
+    branch: reference_fix
   jennifer_sqlite3_adapter:
     github: Hentioe/jennifer_sqlite3_adapter
     branch: bugfix

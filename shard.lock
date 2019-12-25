@@ -29,8 +29,8 @@ shards:
     version: 0.1.8
 
   jennifer:
-    github: imdrasil/jennifer.cr
-    version: 0.8.4
+    github: Hentioe/jennifer.cr
+    commit: ac7b7f9597de97e646e6e43bc9a9e4db7db9fe2c
 
   jennifer_sqlite3_adapter:
     github: Hentioe/jennifer_sqlite3_adapter
