@@ -7,7 +7,8 @@ module Zheckin::Cron
 
   def self.init
     # 将固定的北京时间转换为本地时间
-    beijing_time = Time.local(1970, 1, 1, SCHEDULE_HOUR, SCHEDULE_MINUTE, 0, location: Time::Location.load("Asia/Beijing"))
+    beijing_location = Time::Location.fixed(3600 * 8)
+    beijing_time = Time.local(1970, 1, 1, SCHEDULE_HOUR, SCHEDULE_MINUTE, 0, location: beijing_location)
     date_time = beijing_time.to_local_in(Time.local.location)
     time_s = date_time.to_s("%H:%M:%S")
 

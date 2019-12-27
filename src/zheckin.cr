@@ -11,7 +11,7 @@ require "./zheckin/logging"
 require "./zheckin/web"
 require "./zheckin/cron"
 
-Zheckin::CLI.def_action "Zheckin.start", exclude: ENV["ZHEKIN_ENV"]? == "test"
+Zheckin::CLI.def_action "Zheckin.start", exclude: ENV["ZHECKIN_ENV"]? == "test"
 
 module Zheckin
   VERSION = "0.1.0"

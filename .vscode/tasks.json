@@ -61,7 +61,8 @@
       "command": "crystal",
       "options": {
         "env": {
-          "ZHECKIN_ENV": "test"
+          "ZHECKIN_ENV": "test",
+          "ZHECKIN_BASE_SECRET_KEY": "secret123"
         }
       },
       "args": [
