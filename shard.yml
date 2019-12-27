@@ -27,3 +27,5 @@ dependencies:
   jennifer_sqlite3_adapter:
     github: Hentioe/jennifer_sqlite3_adapter
     branch: bugfix
+  matching:
+    github: Hentioe/matching.cr

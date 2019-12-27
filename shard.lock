@@ -48,6 +48,10 @@ shards:
     github: jeromegn/kilt
     version: 0.4.0
 
+  matching:
+    github: Hentioe/matching.cr
+    commit: 2c224eb8bdcd9a3405c84dd551e7717949f2cfb1
+
   openssl_ext:
     github: stakach/openssl_ext
     version: 1.2.0

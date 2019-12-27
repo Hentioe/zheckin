@@ -6,7 +6,7 @@ class CreateHistories < Jennifer::Migration::Base
 
       t.string :msg, {:null => false}
 
-      t.timestamp :created_at, {:null => false}
+      t.timestamps
     end
   end
 
