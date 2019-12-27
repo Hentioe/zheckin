@@ -5,3 +5,5 @@
 *.dwarf
 
 /data/
+
+/*.env

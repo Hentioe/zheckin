@@ -29,3 +29,7 @@ dependencies:
     branch: bugfix
   matching:
     github: Hentioe/matching.cr
+  crest:
+    github: mamantoha/crest
+  dotenv:
+    github: gdotdesign/cr-dotenv

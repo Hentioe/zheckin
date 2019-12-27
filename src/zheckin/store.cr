@@ -21,6 +21,17 @@ module Zheckin::Store
     end
   end
 
+  macro changed_columns(model, data, fields)
+    %changed_columns = {} of Symbol => String
+    {% for field in fields %}
+      if (%change = {{data}}[{{field}}]?) && {{model}}.{{field.id}} != %change
+        %changed_columns[{{field}}] = {{data}}[{{field}}]
+      end
+    {% end %}
+
+    %changed_columns
+  end
+
   defdelegate :find_accounts, to: Account.find_list
   defdelegate :create_account!, to: Account.create!
   defdelegate :update_account!, to: Account.update!
@@ -28,6 +39,7 @@ module Zheckin::Store
   defdelegate :refresh_account_clubs!, to: Account.refresh_clubs!
 
   defdelegate :create_club!, to: Club.create!
+  defdelegate :fetch_club!, to: Club.fetch!
   defdelegate :update_club!, to: Club.update!
   defdelegate :delete_club!, to: Club.delete!
 
@@ -45,7 +57,8 @@ module Zheckin::Store
         Jennifer::Adapter.adapter.transaction do
           account = Account.create!(data)
           clubs.each { |club| account.add_clubs(club) }
-        end
+          account
+        end.not_nil!
       else
         Account.create!(data)
       end
@@ -75,12 +88,27 @@ module Zheckin::Store
   end
 
   impl :club, options: {:primary_type => String} do
+    REQUIRE_FIELDS = %i(name description avatar background)
+
     def self.create!(data : Hash)
       Club.create!(data)
     end
 
+    def self.fetch!(data : Hash)
+      id = data[:id]
+      if club = Club.where { _id == id }.first
+        changed_data = Store.changed_columns(club, data, {{REQUIRE_FIELDS}})
+        if changed_data.size > 0
+          update!(club, changed_data)
+        end
+        club
+      else
+        create!(data)
+      end
+    end
+
     def self.update!(club : Club, data : Hash)
-      account.update_columns(data)
+      club.update_columns(data)
     end
 
     def self.delete!(club : Club)
@@ -90,7 +118,6 @@ module Zheckin::Store
 
   impl :history do
     def self.create!(data : Hash)
-      pp data
       History.create!(data)
     end
 

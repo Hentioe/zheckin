@@ -61,8 +61,7 @@
       "command": "crystal",
       "options": {
         "env": {
-          "ZHECKIN_ENV": "test",
-          "ZHECKIN_ZHIHU_API_TOKEN": "$ZHECKIN_ZHIHU_API_TOKEN"
+          "ZHECKIN_ENV": "test"
         }
       },
       "args": [

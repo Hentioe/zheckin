@@ -8,13 +8,25 @@ shards:
     github: j8r/clicr
     version: 0.7.0
 
+  crest:
+    github: mamantoha/crest
+    version: 0.23.1
+
   db:
     github: crystal-lang/crystal-db
     version: 0.7.0
 
+  dotenv:
+    github: gdotdesign/cr-dotenv
+    version: 0.3.1
+
   exception_page:
     github: crystal-loot/exception_page
     version: 0.1.2
+
+  http-client-digest_auth:
+    github: mamantoha/http-client-digest_auth
+    version: 0.2.0
 
   i18n:
     github: TechMagister/i18n.cr
