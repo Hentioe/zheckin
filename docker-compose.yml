@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  server:
+    image: bluerain/zheckin
+    stdin_open: true
+    ports:
+      - 8097:8080
+    environment:
+      ZHECKIN_ZHIHU_API_TOKEN: "${ZHECKIN_ZHIHU_API_TOKEN}"
+      ZHECKIN_ADMIN_EMAIL: "${ZHECKIN_ADMIN_EMAIL}"
+      ZHECKIN_ADMIN_PASSWORD: "${ZHECKIN_ADMIN_PASSWORD}"
+      ZHECKIN_BASE_SECRET_KEY: "${ZHECKIN_BASE_SECRET_KEY}"
+    restart: always

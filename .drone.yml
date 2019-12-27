@@ -1,0 +1,59 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: app-test
+    image: bluerain/zheckin:build
+    pull: true
+    commands:
+      - shards --production
+      - mkdir data
+      - ZHECKIN_ENV=test crystal sam.cr -- db:setup
+      - ZHECKIN_ENV=test crystal spec
+
+  - name: app-build
+    image: bluerain/zheckin:build
+    pull: true
+    commands:
+      - shards build zheckin --release --progress --production
+
+  - name: app-image-push
+    image: plugins/docker
+    settings:
+      repo: bluerain/zheckin
+      username: bluerain
+      password:
+        from_secret: docker_password
+      dockerfile: Dockerfile
+      tags: latest
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+  - name: sam-build
+    image: bluerain/zheckin:build
+    pull: true
+    commands:
+      - shards build sam --release --progress --production
+    when:
+      branch:
+        - sam/update
+      event:
+        - push
+
+  - name: sam-image-push
+    image: plugins/docker
+    settings:
+      repo: bluerain/zheckin
+      username: bluerain
+      password:
+        from_secret: docker_password
+      dockerfile: sam.Dockerfile
+      tags: sam
+    when:
+      branch:
+        - sam/update
+      event:
+        - push
