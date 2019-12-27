@@ -2,6 +2,8 @@ require "crest"
 
 module Zheckin::Zhihu
   module RawApi
+    LOGGING = Zheckin.get_app_env?("env") == "test"
+
     COMMON_API_TOKEN = Zheckin.get_app_env("zhihu_api_token")
     BASE_HEADERS     = {
       "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0",
@@ -12,14 +14,14 @@ module Zheckin::Zhihu
       endpoint = "https://www.zhihu.com/api/v4/clubs/joined?limit=#{limit}&offset=#{offset}"
       headers = BASE_HEADERS.merge({"Cookie" => "z_c0=#{api_token}"})
 
-      Crest.get(endpoint, headers: headers)
+      Crest.get(endpoint, headers: headers, logging: LOGGING)
     end
 
     def self.people(url_token : String, api_token = COMMON_API_TOKEN)
       endpoint = "https://api.zhihu.com/people/#{url_token}"
       headers = BASE_HEADERS.merge({"Cookie" => "z_c0=#{api_token}"})
 
-      Crest.get(endpoint, headers: headers)
+      Crest.get(endpoint, headers: headers, logging: LOGGING)
     end
 
     def self.self(api_token : String)
@@ -30,7 +32,7 @@ module Zheckin::Zhihu
       endpoint = "https://www.zhihu.com/api/v4/clubs/#{club_id}/checkin"
       headers = BASE_HEADERS.merge({"Cookie" => "z_c0=#{api_token}"})
 
-      Crest.post(endpoint, headers: headers)
+      Crest.post(endpoint, headers: headers, logging: LOGGING)
     end
   end
 
