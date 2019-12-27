@@ -4,7 +4,7 @@ class CreateClubs < Jennifer::Migration::Base
       t.string :id, {:null => false, :primary => true}
       t.string :name, {:null => false}
       t.string :description, {:null => false}
-      t.string :icon, {:null => false}
+      t.string :avatar, {:null => false}
       t.string :background, {:null => false}
 
       t.timestamps

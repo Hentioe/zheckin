@@ -20,7 +20,7 @@ module Zheckin::Model
       updated_at: Time?,
     )
 
-    has_many :history, History
+    has_many :histories, History
     has_and_belongs_to_many :clubs, Club
   end
 end

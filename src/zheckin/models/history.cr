@@ -5,6 +5,8 @@ module Zheckin::Model
     mapping(
       id: Primary32,
       msg: String,
+      account_id: String,
+      club_id: String,
 
       created_at: Time?,
       updated_at: Time?,

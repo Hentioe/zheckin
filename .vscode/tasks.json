@@ -41,7 +41,7 @@
       "command": "crystal",
       "options": {
         "env": {
-          "VEEMOE_CLOUD_ENV": "test"
+          "ZHECKIN_ENV": "test"
         }
       },
       "args": [
@@ -61,7 +61,8 @@
       "command": "crystal",
       "options": {
         "env": {
-          "ZHECKIN_ENV": "test"
+          "ZHECKIN_ENV": "test",
+          "ZHECKIN_ZHIHU_API_TOKEN": "$ZHECKIN_ZHIHU_API_TOKEN"
         }
       },
       "args": [

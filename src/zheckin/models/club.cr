@@ -9,8 +9,8 @@ module Zheckin::Model
       name: String,
       # 描述
       description: String,
-      # 图标
-      icon: String,
+      # 头像
+      avatar: String,
       # 背景
       background: String,
 
@@ -18,7 +18,7 @@ module Zheckin::Model
       updated_at: Time?,
     )
 
-    has_many :history, History
+    has_many :histories, History
     has_and_belongs_to_many :accounts, Account
   end
 end
