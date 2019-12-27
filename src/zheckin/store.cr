@@ -47,6 +47,7 @@ module Zheckin::Store
   defdelegate :create_history!, to: History.create!
   defdelegate :update_history!, to: History.update!
   defdelegate :delete_history!, to: History.delete!
+  defdelegate :personal_all_histories, to: History.personal_all
 
   impl :account, options: {:primary_type => String} do
     REQUIRE_FIELDS = %i(url_token name email avatar api_token)
@@ -143,6 +144,10 @@ module Zheckin::Store
 
     def self.delete!(history : History)
       history.delete
+    end
+
+    def self.personal_all(account_id : String)
+      History.where { _account_id == account_id }.to_a
     end
   end
 end

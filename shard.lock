@@ -76,6 +76,10 @@ shards:
     github: imdrasil/sam.cr
     version: 0.3.2
 
+  schedule:
+    github: hugoabonizio/schedule.cr
+    version: 0.2.1
+
   sqlite3:
     github: crystal-lang/crystal-sqlite3
     version: 0.14.0

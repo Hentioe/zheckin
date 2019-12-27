@@ -2,6 +2,15 @@ module Zheckin::Model
   class History < Jennifer::Model::Base
     with_timestamps
 
+    JSON.mapping(
+      id: Int32,
+      msg: String,
+      account_id: String,
+      club_id: String,
+      created_at: Time?,
+      updated_at: Time?
+    )
+
     mapping(
       id: Primary32,
       # 结果消息

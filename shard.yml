@@ -33,3 +33,5 @@ dependencies:
     github: mamantoha/crest
   dotenv:
     github: gdotdesign/cr-dotenv
+  schedule:
+    github: hugoabonizio/schedule.cr
