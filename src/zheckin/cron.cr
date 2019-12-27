@@ -12,6 +12,8 @@ module Zheckin::Cron
     date_time = beijing_time.to_local_in(Time.local.location)
     time_s = date_time.to_s("%H:%M:%S")
 
+    Logging.info "scheduling time: #{time_s}"
+
     Schedule.every(:day, time_s) { start() }
   end
 
