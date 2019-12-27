@@ -9,6 +9,8 @@ steps:
       ZHECKIN_ENV: test
       ZHECKIN_ZHIHU_API_TOKEN:
         from_secret: zhihu_api_token
+      ZHECKIN_BASE_SECRET_KEY:
+        from_secret: base_secret_key
     commands:
       - shards --production
       - mkdir data
