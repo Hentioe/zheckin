@@ -43,14 +43,18 @@ describe Zheckin do
     account_data = account_data.merge({:api_token => zhihu_api_token})
     account = Store.create_account!(account_data)
     account.should be_truthy
-    account.not_nil!.id.should eq("7eb8dd6d1e665c9b53832a0d8ab3a4c2")
-    account.not_nil!.api_token.should eq(zhihu_api_token)
+    account.id.should eq("7eb8dd6d1e665c9b53832a0d8ab3a4c2")
+    account.api_token.should eq(zhihu_api_token)
 
     accounts = Store.find_accounts
     accounts.size.should eq(1)
 
-    Store.update_account!(account.not_nil!, {:api_token => "[DELETED]"})
-    account.not_nil!.api_token.should eq("[DELETED]")
+    account = Store.fetch_account!(account_data.merge({:name => "[EMPTY]"}))
+    account.id.should eq("7eb8dd6d1e665c9b53832a0d8ab3a4c2")
+    account.name.should eq("[EMPTY]")
+
+    Store.update_account!(account, {:api_token => "[DELETED]"})
+    account.api_token.should eq("[DELETED]")
 
     club_data = {
       :name        => "绝地求生",
@@ -147,14 +151,8 @@ describe Zheckin do
     end
 
     describe Zheckin::Zhihu::WrapperApi do
-      account = Store.create_account!({
-        :id        => "7eb8dd6d1e665c9b53832a0d8ab3a4c2",
-        :url_token => "Hentioe",
-        :name      => "绅士喵",
-        :email     => "me@bluerain.io",
-        :avatar    => "https://pic4.zhimg.com/v2-654375a3519dcc4e478f88e206ceb695_{size}.jpg",
-        :api_token => zhihu_api_token,
-      })
+      account = Zhihu::WrapperApi.self(zhihu_api_token)
+      account.api_token.should eq(zhihu_api_token)
 
       clubs = Zhihu::WrapperApi.clubs_joined(account.not_nil!)
       (clubs.size > 0).should be_true

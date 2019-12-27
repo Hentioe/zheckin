@@ -15,11 +15,15 @@ module Zheckin::Zhihu
       Crest.get(endpoint, headers: headers)
     end
 
-    def self.people(url_token : String)
+    def self.people(url_token : String, api_token = COMMON_API_TOKEN)
       endpoint = "https://api.zhihu.com/people/#{url_token}"
-      headers = BASE_HEADERS.merge({"Cookie" => "z_c0=#{COMMON_API_TOKEN}"})
+      headers = BASE_HEADERS.merge({"Cookie" => "z_c0=#{api_token}"})
 
-      Crest.get(endpoint, headers: BASE_HEADERS)
+      Crest.get(endpoint, headers: headers)
+    end
+
+    def self.self(api_token : String)
+      people("self", api_token: api_token)
     end
 
     def self.clubs_checkin(api_token : String, club_id : String)
@@ -31,6 +35,22 @@ module Zheckin::Zhihu
   end
 
   module WrapperApi
+    def self.self(api_token : String) : Model::Account
+      resp = RawApi.self(api_token)
+      json = JSON.parse(resp.body)
+
+      account_data = {
+        :id        => json["id"].as_s,
+        :url_token => json["url_token"].as_s,
+        :name      => json["url_token"].as_s,
+        :email     => json["email"].as_s,
+        :avatar    => json["avatar_url_template"].as_s,
+        :api_token => api_token,
+      }
+
+      Store.fetch_account!(account_data)
+    end
+
     def self.clubs_joined(account : Model::Account,
                           clubs = Array(Model::Club).new,
                           limit = 20,

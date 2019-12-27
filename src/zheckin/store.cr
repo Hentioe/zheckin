@@ -34,6 +34,7 @@ module Zheckin::Store
 
   defdelegate :find_accounts, to: Account.find_list
   defdelegate :create_account!, to: Account.create!
+  defdelegate :fetch_account!, to: Account.fetch!
   defdelegate :update_account!, to: Account.update!
   defdelegate :delete_account!, to: Account.delete!
   defdelegate :refresh_account_clubs!, to: Account.refresh_clubs!
@@ -48,6 +49,8 @@ module Zheckin::Store
   defdelegate :delete_history!, to: History.delete!
 
   impl :account, options: {:primary_type => String} do
+    REQUIRE_FIELDS = %i(url_token name email avatar api_token)
+
     def self.find_list
       Account.all.to_a
     end
@@ -61,6 +64,19 @@ module Zheckin::Store
         end.not_nil!
       else
         Account.create!(data)
+      end
+    end
+
+    def self.fetch!(data : Hash)
+      id = data[:id]
+      if account = Account.where { _id == id }.first
+        changed_data = Store.changed_columns(account, data, {{REQUIRE_FIELDS}})
+        if changed_data.size > 0
+          update!(account, changed_data)
+        end
+        account
+      else
+        create!(data)
       end
     end
 
