@@ -7,7 +7,6 @@ module Zheckin::Zhihu
     COMMON_API_TOKEN = Zheckin.get_app_env("zhihu_api_token")
     BASE_HEADERS     = {
       "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0",
-      "Host"       => "www.zhihu.com",
     }
 
     def self.clubs_joined(api_token : String, limit = 20, offset = 0)
