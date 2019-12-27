@@ -1,7 +1,8 @@
 require "dotenv"
 require "./zheckin/dsl"
 
-Dotenv.load %(#{Zheckin.get_app_env?("env") || "dev"}.env)
+env_config = %(#{Zheckin.get_app_env?("env") || "dev"}.env)
+Dotenv.load(env_config) if File.exists?(env_config)
 
 require "./zheckin/cli"
 require "./zheckin/store"
