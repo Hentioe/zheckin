@@ -5,11 +5,15 @@ steps:
   - name: app-test
     image: bluerain/zheckin:build
     pull: true
+    environment:
+      ZHECKIN_ENV: test
+      ZHECKIN_ZHIHU_API_TOKEN:
+        from_secret: zhihu_api_token
     commands:
       - shards --production
       - mkdir data
-      - ZHECKIN_ENV=test crystal sam.cr -- db:setup
-      - ZHECKIN_ENV=test crystal spec
+      - crystal sam.cr -- db:setup
+      - crystal spec
 
   - name: app-build
     image: bluerain/zheckin:build
