@@ -16,11 +16,6 @@ module Zheckin::CLI
             info:    "Log level",
             default: "info",
           },
-        },
-        options: {
-          prod: {
-            info: "Running in prod mode",
-          },
         }
       )
     end

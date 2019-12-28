@@ -19,6 +19,8 @@ dependencies:
     github: j8r/clicr
   kemal:
     github: kemalcr/kemal
+  spec-kemal:
+    github: kemalcr/spec-kemal
   jwt:
     github: crystal-community/jwt
   sam:

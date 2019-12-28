@@ -173,4 +173,20 @@ describe Zheckin do
       end
     end
   end
+
+  describe Zheckin::Web do
+    describe Zheckin::Web::Router do
+      describe Zheckin::Web::Router::Page do
+        it "render /" do
+          get "/"
+          response.status.should eq(HTTP::Status::OK)
+        end
+
+        it "render 404" do
+          get "/[not_found]"
+          response.status.should eq(HTTP::Status::NOT_FOUND)
+        end
+      end
+    end
+  end
 end

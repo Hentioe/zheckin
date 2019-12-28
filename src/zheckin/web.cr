@@ -3,11 +3,21 @@ require "./web/*"
 require "./web/middlewares/*"
 
 module Zheckin::Web
-  def self.start(port : Int, prod : Bool)
+  KEMAL_ENV =
+    case Zheckin.get_app_env?("env")
+    when "dev", nil
+      "development"
+    when "prod"
+      "production"
+    else
+      Zheckin.get_app_env("env")
+    end
+
+  def self.start(port : Int)
     serve_static({"gzip" => false})
     public_folder "static"
     Kemal.config.logger = LoggerHandler.new(Logging.get_logger)
-    Kemal.config.env = "production" if prod
+    Kemal.config.env = KEMAL_ENV
 
     add_handler AuthHandler.new
 
