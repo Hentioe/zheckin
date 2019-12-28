@@ -2,6 +2,17 @@ module Zheckin::Model
   class Account < Jennifer::Model::Base
     with_timestamps
 
+    JSON.mapping(
+      id: String,
+      url_token: String,
+      name: String,
+      email: String,
+      avatar: String,
+      api_token: String,
+      created_at: Time?,
+      updated_at: Time?
+    )
+
     mapping(
       # 帐号ID
       id: {type: String, primary: true},

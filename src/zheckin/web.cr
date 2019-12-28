@@ -12,6 +12,8 @@ module Zheckin::Web
     add_handler AuthHandler.new
 
     Router.registry :page
+    Router.registry :sign_in
+    Router.registry :console_api
 
     Kemal.run(args: nil, port: port)
   end
