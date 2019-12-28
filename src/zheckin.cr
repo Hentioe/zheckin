@@ -19,7 +19,7 @@ module Zheckin
   def self.start(port, log_level, prod)
     # 初始化日志
     Logging.init(log_level)
-    Logging.info "ready to start"
+    Logging.info "app starting"
 
     # 定时任务
     spawn { Cron.init }

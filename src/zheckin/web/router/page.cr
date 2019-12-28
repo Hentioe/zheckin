@@ -5,7 +5,7 @@ module Zheckin::Web::Router
 
   resources :page do
     get "/" do |context|
-      # json(context, Store.personal_all_histories(SELF_API_TOKEN))
+      json(context, Store.personal_all_histories(SELF_API_TOKEN))
     end
 
     error 404 do |context|
