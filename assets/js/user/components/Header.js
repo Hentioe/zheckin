@@ -21,7 +21,8 @@ const Logo = ({ routable }) => {
   const className = "font-normal text-2xl";
   const Text = (
     <>
-      <span>Zheck</span>
+      <span className="tracking-tight text-blue-500">Z</span>
+      <span>heck</span>
       <span className="tracking-tight text-blue-500">In</span>
     </>
   );

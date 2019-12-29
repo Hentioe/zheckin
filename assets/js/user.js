@@ -1,5 +1,7 @@
 // 导入样式
 import "../scss/user.scss";
+// 导入图标
+import "@fortawesome/fontawesome-free/js/all";
 // Polyfills
 import "mdn-polyfills/Object.assign";
 import "mdn-polyfills/Array.prototype.includes";

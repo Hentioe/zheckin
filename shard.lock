@@ -18,7 +18,7 @@ shards:
 
   digests:
     github: Hentioe/digests.cr
-    commit: b62d1272fd204e1c72be58f8a8338c77a66e1e5c
+    commit: b8b4a505dc0232388b51667d5b4b4a872ce9cf79
 
   dotenv:
     github: gdotdesign/cr-dotenv
