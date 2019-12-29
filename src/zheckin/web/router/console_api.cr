@@ -37,5 +37,22 @@ module Zheckin::Web::Router
       histories = Zhihu::WrapperApi.clubs_checkin_all(account)
       json_success(context, histories: histories)
     end
+
+    get "/histories/today" do |context|
+      account = context.get("account").as(Model::Account)
+
+      histories = Store.today_histories(account_id: account.id)
+      json_success(context, histories: histories)
+    end
+
+    get "/histories/clubs/:id" do |context|
+      club_id = context.params.url["id"]
+      offset = context.params.query["offset"]? || "0"
+      limit = context.params.query["limit"]? || "25"
+      account = context.get("account").as(Model::Account)
+
+      histories = Store.find_histories(account_id: account.id, club_id: club_id, offset: offset.to_i, limit: limit.to_i)
+      json_success(context, histories: histories)
+    end
   end
 end

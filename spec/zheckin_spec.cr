@@ -46,8 +46,13 @@ describe Zheckin do
     account.id.should eq("7eb8dd6d1e665c9b53832a0d8ab3a4c2")
     account.api_token.should eq(zhihu_api_token)
 
+    account2 = Store.create_account!(account_data.merge({:id => "[TEMP]", :url_token => "[TEMP]"}))
+    account2.should be_truthy
+    account2.id.should eq("[TEMP]")
+    account2.url_token.should eq("[TEMP]")
+
     accounts = Store.find_accounts
-    accounts.size.should eq(1)
+    accounts.size.should eq(2)
 
     account = Store.fetch_account!(account_data.merge({:name => "[EMPTY]"}))
     account.id.should eq("7eb8dd6d1e665c9b53832a0d8ab3a4c2")
@@ -95,18 +100,37 @@ describe Zheckin do
       e.message.not_nil!.should start_with("FOREIGN KEY constraint failed")
     end
 
-    history_data = history_data.merge({:account_id => account.not_nil!.id, :club_id => club.not_nil!.id})
+    history_data = history_data.merge({:account_id => account.id, :club_id => club.id})
     history = Store.create_history!(history_data)
+    history.should be_truthy
+    history.account_id.should eq(account.id)
+    history.club_id.should eq(club.id)
 
-    account.not_nil!.clubs.size.should eq(1)
-    club.not_nil!.histories.size.should eq(1)
+    history_data = history_data.merge({:account_id => account2.id})
+    history2 = Store.create_history!(history_data)
+    history2.should be_truthy
+    history2.account_id.should eq(account2.id)
+    history2.club_id.should eq(club.id)
+
+    Store.today_histories.size.should eq(2)
+    Store.today_histories(account_id: account.id).size.should eq(1)
+    Store.today_histories(club_id: club.id).size.should eq(2)
+    Store.find_histories.size.should eq(2)
+    Store.find_histories(account_id: account.id).size.should eq(1)
+    Store.find_histories(club_id: club.id).size.should eq(2)
+
+    account.clubs.size.should eq(1)
+    club.histories.size.should eq(2)
 
     Store.delete_club!(club)
-    account.not_nil!.clubs_reload.size.should eq(0)
-    account.not_nil!.histories_reload.size.should eq(0)
+    account.clubs_reload.size.should eq(0)
+    account.histories_reload.size.should eq(0)
 
-    Store.delete_account!(account.not_nil!)
-    Store::Account.get(account.not_nil!.id).should be_falsey
+    Store.today_histories.size.should eq(0)
+    Store.find_histories.size.should eq(0)
+
+    Store.delete_account!(account)
+    Store::Account.get(account.id).should be_falsey
   end
 
   describe Zheckin::Zhihu do
@@ -223,6 +247,20 @@ describe Zheckin do
           response.status.should eq(HTTP::Status::OK)
           json = JSON.parse(response.body)
           (json["histories"].as_a.size > 0).should be_true
+        end
+
+        it "get /histories/today" do
+          get "/console/api/histories/today", headers: with_auth(token)
+          response.status.should eq(HTTP::Status::OK)
+          json = JSON.parse(response.body)
+          (json["histories"].as_a.size > 0).should be_true
+        end
+
+        it "get /histories/clubs/:id" do
+          get "/console/api/histories/clubs/1180068365795840000?limit=1", headers: with_auth(token)
+          response.status.should eq(HTTP::Status::OK)
+          json = JSON.parse(response.body)
+          json["histories"].as_a.size.should eq(1)
         end
       end
     end

@@ -1,7 +1,7 @@
 module Zheckin::Web::Router
   resources :page do
     get "/" do |context|
-      json(context, Store.all_histories)
+      json(context, Store.find_histories)
     end
 
     error 404 do |context|

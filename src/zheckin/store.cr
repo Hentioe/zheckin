@@ -41,7 +41,8 @@ module Zheckin::Store
   defdelegate :create_history!, to: History.create!
   defdelegate :update_history!, to: History.update!
   defdelegate :delete_history!, to: History.delete!
-  defdelegate :all_histories, to: History.all
+  defdelegate :find_histories, to: History.find_list
+  defdelegate :today_histories, to: History.today_list
 
   impl :account, options: {:primary_type => String} do
     REQUIRE_FIELDS = %i(url_token name email avatar api_token)
@@ -142,6 +143,40 @@ module Zheckin::Store
 
     def self.all
       History.all.to_a
+    end
+
+    def self.today_list(account_id : String? = nil, club_id : String? = nil)
+      now = Time.utc
+      midnight_twelve = Time.utc(now.year, now.month, now.day, 0, 0, 0)
+
+      case {account_id, club_id}
+      when {nil, nil}
+        History.where { _created_at >= midnight_twelve }.to_a
+      when {account_id, nil}
+        History.where { (_account_id == account_id.not_nil!) & (_created_at >= midnight_twelve) }.to_a
+      when {nil, club_id}
+        History.where { (_club_id == club_id.not_nil!) & (_created_at >= midnight_twelve) }.to_a
+      else
+        History.where {
+          (_account_id == account_id.not_nil!) & (_club_id == club_id.not_nil!) & (_created_at >= midnight_twelve)
+        }.to_a
+      end
+    end
+
+    def self.find_list(account_id : String? = nil, club_id : String? = nil, offset = 0, limit = 999)
+      query =
+        case {account_id, club_id}
+        when {nil, nil}
+          History.all
+        when {account_id, nil}
+          History.where { _account_id == account_id.not_nil! }
+        when {nil, club_id}
+          History.where { _club_id == club_id.not_nil! }
+        else
+          History.where { (_account_id == account_id.not_nil!) & (_club_id == club_id.not_nil!) }
+        end
+
+      query.offset(offset).limit(limit).to_a
     end
   end
 end
