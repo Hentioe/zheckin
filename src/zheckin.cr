@@ -1,4 +1,5 @@
 require "dotenv"
+require "digests"
 require "./zheckin/dsl"
 
 env_config = %(#{Zheckin.get_app_env?("env") || "dev"}.env)
@@ -20,6 +21,13 @@ module Zheckin
     # 初始化日志
     Logging.init(log_level)
     Logging.info "app starting"
+
+    # 初始化 Digests
+    unless get_app_env?("env") == "prod"
+      ENV["DIGESTS_ENV"] = "dev"
+    else
+      Digests.init # Default "static"
+    end
 
     # 定时任务
     spawn { Cron.init }

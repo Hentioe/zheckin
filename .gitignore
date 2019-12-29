@@ -7,3 +7,6 @@
 /data/
 
 /*.env
+
+/assets/node_modules/
+/static/

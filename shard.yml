@@ -39,3 +39,5 @@ dependencies:
     github: gdotdesign/cr-dotenv
   schedule:
     github: hugoabonizio/schedule.cr
+  digests:
+    github: Hentioe/digests.cr

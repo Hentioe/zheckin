@@ -1,7 +1,7 @@
 module Zheckin::Web::Router
   resources :page do
     get "/" do |context|
-      json(context, Store.find_histories)
+      render "src/views/user.html.ecr"
     end
 
     error 404 do |context|

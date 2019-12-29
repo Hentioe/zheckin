@@ -16,11 +16,19 @@ steps:
       - crystal sam.cr -- db:setup
       - crystal spec
 
+  - name: assets-build
+    image: node:stretch
+    commands:
+      - npm install --prefix ./assets
+      - npm run deploy --prefix ./assets
+
   - name: app-build
     image: bluerain/zheckin:build
     pull: true
     commands:
       - shards build zheckin --release --progress --production
+      - crystal sam.cr -- digests:make
+      - crystal sam.cr -- digests:clean_undigested
 
   - name: app-image-push
     image: plugins/docker

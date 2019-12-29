@@ -8,6 +8,7 @@ RUN mkdir "$APP_HOME" && \
     ln -s /data "$APP_HOME/data"
 
 COPY bin $APP_HOME
+COPY static "$APP_HOME/static"
 
 WORKDIR $APP_HOME
 

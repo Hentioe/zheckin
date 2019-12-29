@@ -72,6 +72,27 @@
         "db: reset(test)"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "assets: watching",
+      "type": "npm",
+      "script": "watch",
+      "path": "assets/",
+      "problemMatcher": []
+    },
+    {
+      "label": "assets: deploy",
+      "type": "npm",
+      "script": "deploy",
+      "path": "assets/",
+      "problemMatcher": []
+    },
+    {
+      "label": "assets: deps install",
+      "type": "npm",
+      "script": "install",
+      "path": "assets/",
+      "problemMatcher": []
     }
   ]
 }
