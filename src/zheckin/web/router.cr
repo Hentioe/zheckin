@@ -32,30 +32,40 @@ module Zheckin::Web::Router
         {% end %}
       {% end %}
 
-      def self.json(context, data, status_code = 200)
-        context.response.content_type = "application/json"
-        context.response.status_code = status_code
-
-        case status_code
-        when 404
-          context.set "body", data.to_json
-        else
-          data.to_json
-        end
-      end
-
       def self.init({{*args}})
         {{yield}}
       end
 
-      def self.json_error(context, msg : String, status_code = 201)
-        json(context, {msg: msg}, status_code)
-      end
+      defdelegate :json, to: Router.json
+      defdelegate :json_error, to: Router.json_error
+      defdelegate :json_success, to: Router.json_success
+      defdelegate :json_unauthorized, to: Router.json_unauthorized
 
-      def self.json_success(context, **args)
-        json(context, {msg: "OK"}.merge(args))
-      end
     end
+  end
+
+  def self.json(context, data, status_code = 200)
+    context.response.content_type = "application/json"
+    context.response.status_code = status_code
+
+    case status_code
+    when 404
+      context.set "body", data.to_json
+    else
+      data.to_json
+    end
+  end
+
+  def self.json_error(context, msg : String, status_code = 403)
+    json(context, {error: {msg: msg}}, status_code)
+  end
+
+  def self.json_success(context, **args)
+    json(context, {data: {msg: "OK"}}.merge(args))
+  end
+
+  def self.json_unauthorized(context)
+    json_error(context, "Unauthorized", status_code: 401)
   end
 end
 

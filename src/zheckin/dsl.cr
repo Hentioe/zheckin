@@ -7,3 +7,9 @@ module Zheckin
     ENV["ZHECKIN_{{name.upcase.id}}"]?
   end
 end
+
+macro defdelegate(name, *args, to method)
+  def self.{{name.id}}(*args, **options)
+    {{method.id}}(*args, **options)
+  end
+end

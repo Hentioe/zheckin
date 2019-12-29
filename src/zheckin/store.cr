@@ -15,12 +15,6 @@ module Zheckin::Store
     end
   end
 
-  private macro defdelegate(name, *args, to method)
-    def self.{{name.id}}(*args, **options)
-      {{method.id}}(*args, **options)
-    end
-  end
-
   macro changed_columns(model, data, fields)
     %changed_columns = {} of Symbol => String
     {% for field in fields %}

@@ -176,6 +176,16 @@ describe Zheckin do
 
   describe Zheckin::Web do
     describe Zheckin::Web::Router do
+      post "/sign_in", headers: with_json, body: {api_token: "[INVALID_API_TOKEN]"}.to_json
+      response.status.should eq(HTTP::Status::UNAUTHORIZED)
+      sign_in_resp_json = JSON.parse(response.body)
+      sign_in_resp_json["error"].as_h["msg"].as_s.should eq("无效的认证令牌")
+
+      post "/sign_in", headers: with_json, body: {api_token: zhihu_api_token}.to_json
+      response.status.should eq(HTTP::Status::OK)
+      sign_in_resp_json = JSON.parse(response.body)
+      token = sign_in_resp_json["token"].as_s
+
       describe Zheckin::Web::Router::Page do
         it "render /" do
           get "/"
@@ -185,6 +195,20 @@ describe Zheckin do
         it "render 404" do
           get "/[not_found]"
           response.status.should eq(HTTP::Status::NOT_FOUND)
+        end
+
+        it "render console" do
+          get "/console"
+          response.status.should eq(HTTP::Status::UNAUTHORIZED)
+        end
+      end
+
+      describe Zheckin::Web::Router::ConsoleApi do
+        it "put /accounts/refresh_joined_clubs" do
+          put "/console/api/accounts/refresh_joined_clubs", headers: with_auth(token)
+          response.status.should eq(HTTP::Status::OK)
+          json = JSON.parse(response.body)
+          (json["clubs"].size > 0).should be_true
         end
       end
     end

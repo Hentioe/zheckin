@@ -4,9 +4,6 @@ module Zheckin::Web
   class AuthHandler < Kemal::Handler
     BASE_SECRET_KEY = Zheckin.get_app_env("base_secret_key")
 
-    def initialize
-    end
-
     def call(context)
       if token_cookie = context.request.cookies["token"]?
         token = token_cookie.value

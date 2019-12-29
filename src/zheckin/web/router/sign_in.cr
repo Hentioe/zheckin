@@ -28,7 +28,7 @@ module Zheckin::Web::Router
 
         json_success(context, token: token, account: account)
       rescue e : Crest::NotFound | Crest::Unauthorized
-        json_error(context, "无效的认证令牌")
+        json_error(context, "无效的认证令牌", status_code: 401)
       rescue e : Crest::RequestFailed
         json_error(context, "知乎给你提了一个错误：#{e.message || e.to_s}")
       rescue e : Exception

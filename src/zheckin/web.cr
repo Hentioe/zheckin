@@ -13,6 +13,8 @@ module Zheckin::Web
       Zheckin.get_app_env("env")
     end
 
+  add_context_storage_type(Zheckin::Model::Account)
+
   def self.start(port : Int)
     serve_static({"gzip" => false})
     public_folder "static"
@@ -20,6 +22,7 @@ module Zheckin::Web
     Kemal.config.env = KEMAL_ENV
 
     add_handler AuthHandler.new
+    add_handler ConsoleAccessControl.new
 
     Router.registry :page
     Router.registry :sign_in
