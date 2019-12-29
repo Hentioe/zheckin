@@ -210,6 +210,20 @@ describe Zheckin do
           json = JSON.parse(response.body)
           (json["clubs"].size > 0).should be_true
         end
+
+        it "post /clubs/:id/checkin" do
+          post "/console/api/clubs/1180068365795840000/checkin", headers: with_auth(token)
+          response.status.should eq(HTTP::Status::OK)
+          json = JSON.parse(response.body)
+          json["history"].as_h["club_id"].as_s.should eq("1180068365795840000")
+        end
+
+        it "post /clubs/checkin_all" do
+          post "/console/api/clubs/checkin_all", headers: with_auth(token)
+          response.status.should eq(HTTP::Status::OK)
+          json = JSON.parse(response.body)
+          (json["histories"].as_a.size > 0).should be_true
+        end
       end
     end
   end

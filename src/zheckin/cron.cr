@@ -6,7 +6,6 @@ module Zheckin::Cron
   SCHEDULE_MINUTE = (Zheckin.get_app_env?("schedule_minute") || 15).to_i
 
   def self.init
-    # 将固定的北京时间转换为本地时间
     time = Time.local(1970, 1, 1, SCHEDULE_HOUR, SCHEDULE_MINUTE, 0)
     time_s = time.to_s("%H:%M:%S")
 

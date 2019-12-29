@@ -9,7 +9,6 @@ module Zheckin::Web
       return call_next(context) unless only_match?(context)
       if account = Store::Account.get(context.account_id?)
         context.set "account", account
-        pp account
         call_next context
       else
         json = Router.json_unauthorized(context)
