@@ -7,6 +7,8 @@ import { setRootClassName } from "../actions";
 import forSaleSVG from "../../res/for_sale.svg";
 import serverSVG from "../../res/server.svg";
 import securitySVG from "../../res/security.svg";
+import zheckinPNG from "../../res/zheckin.png";
+import screenshotPNG from "../../res/screenshot.png";
 
 const Index = styled.div.attrs(() => ({
   className: clsx()
@@ -26,15 +28,21 @@ const HeroTitle = styled.h1.attrs(() => ({
 `;
 
 const HeroText = styled.div.attrs(() => ({
-  className: clsx(["text-lg", "md:text-xl"], ["mt-4"], ["leading-loose"])
+  className: clsx(
+    ["text-lg", "md:text-xl"],
+    ["mt-4"],
+    ["leading-loose"],
+    ["bg-contain", "bg-center", "bg-no-repeat"] // 背景
+  )
 }))`
   color: #656e71;
+  background-image: url(${zheckinPNG});
 `;
 
 const NavButtonSection = styled.section.attrs(() => ({
   className: clsx(
     ["w-full"], // 宽度
-    ["p-6", "md:-ml-4", "lg:px-32"] // 间距
+    ["md:-ml-4", "mt-12"] // 间距
   )
 }))``;
 
@@ -58,7 +66,7 @@ const Name = () => {
 const ShowCardsSection = styled.section.attrs(() => ({
   className: clsx(
     ["w-full"], // 宽度
-    ["p-6", "lg:px-20", "mt-16", "md:mt-32"], // 间距
+    ["p-6", "lg:px-20", "md:mt-32"], // 间距
     ["flex", "flex-wrap"] // 布局
   )
 }))``;
@@ -114,14 +122,17 @@ export default () => {
                   失效，保护您的帐号安全。
                 </p>
               </HeroText>
+              <NavButtonSection>
+                <NavButton className="mr-4">使用服务</NavButton>
+                <NavButton>私有部署</NavButton>
+              </NavButtonSection>
             </div>
-            <div className="hidden md:w-5/12">{/* 留空 */}</div>
+            <div className="hidden md:w-5/12 md:flex md:justify-end">
+              {/* 留空 */}
+              <img style={{ height: 450 }} src={screenshotPNG} />
+            </div>
           </div>
         </HeroSection>
-        <NavButtonSection>
-          <NavButton className="mr-4">使用服务</NavButton>
-          <NavButton>私有部署</NavButton>
-        </NavButtonSection>
         <ShowCardsSection>
           <ShowCard>
             <ShowCardIcon url={serverSVG} />

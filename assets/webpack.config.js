@@ -48,7 +48,7 @@ module.exports = (env, options) => ({
           {
             loader: "url-loader",
             options: {
-              limit: 1024 * 1224
+              limit: 1024 * 1024
             }
           }
         ]
