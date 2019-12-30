@@ -75,7 +75,7 @@ export default ({ headerHidden }) => {
           {CURRENT_USER ? (
             <LinkMenu href="/console">控制台</LinkMenu>
           ) : (
-            <RouteMenu to="/login">登录</RouteMenu>
+            <RouteMenu to="/sign_in">登入</RouteMenu>
           )}
         </div>
       </Nav>

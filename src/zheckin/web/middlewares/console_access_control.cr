@@ -1,5 +1,5 @@
 module Zheckin::Web
-  class ConsoleAccessControl < Kemal::Handler
+  class ConsoleAccessControlHandler < Kemal::Handler
     only ["/console/*"], "GET"
     only ["/console/*"], "POST"
     only ["/console/*"], "PUT"

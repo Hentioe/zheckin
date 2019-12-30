@@ -22,7 +22,7 @@ module Zheckin::Web
     Kemal.config.env = KEMAL_ENV
 
     add_handler AuthHandler.new
-    add_handler ConsoleAccessControl.new
+    add_handler ConsoleAccessControlHandler.new
 
     Router.registry :page
     Router.registry :sign_in
