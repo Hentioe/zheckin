@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import clsx from "clsx";
 import { setRootClassName } from "../actions";
+import { showHeader, showFooter } from "../slices/root";
 
 import forSaleSVG from "../../res/for_sale.svg";
 import serverSVG from "../../res/server.svg";
@@ -102,6 +103,8 @@ export default () => {
 
   useEffect(() => {
     dispatch(setRootClassName("bg-white"));
+    dispatch(showHeader());
+    dispatch(showFooter());
   }, []);
 
   return (

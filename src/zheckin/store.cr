@@ -45,7 +45,7 @@ module Zheckin::Store
   defdelegate :today_histories, to: History.today_list
 
   impl :account, options: {:primary_type => String} do
-    REQUIRE_FIELDS = %i(url_token name email avatar api_token)
+    REQUIRE_FIELDS = %i(url_token name avatar api_token)
 
     def self.find_list
       Account.all.to_a

@@ -1,15 +1,19 @@
 module Zheckin::Web::Router
-  resources :page do
-    get "/" do |context|
-      render "src/views/user.html.ecr"
+  module Page
+    private macro def_index_routes(routes)
+      {% for route in routes %}
+        get {{route}} do |context|
+          render "src/views/user.html.ecr"
+        end
+      {% end %}
     end
+  end
 
-    error 404 do |context|
-      if body = context.get? "body"
-        body
-      else
-        "Not Found"
-      end
-    end
+  resources :page do
+    def_index_routes ["/", "/sign_in"]
+  end
+
+  error 404 do |context|
+    "Not Found"
   end
 end

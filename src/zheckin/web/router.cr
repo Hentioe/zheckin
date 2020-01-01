@@ -61,7 +61,7 @@ module Zheckin::Web::Router
   end
 
   def self.json_success(context, **args)
-    json(context, {data: {msg: "OK"}}.merge(args))
+    json(context, {data: {msg: "OK"}.merge(args)})
   end
 
   def self.json_unauthorized(context)

@@ -21,7 +21,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 // 导入页面和组件
 import { Header, Footer, MainContainer } from "./user/components";
-import { Index } from "./user/pages";
+import { Index, SignIn } from "./user/pages";
 
 // 创建 Redux store
 import Reducers from "./user/reducers";
@@ -42,8 +42,11 @@ const Root = () => {
       <Header headerHidden={headerHidden} />
       <MainContainer headerHidden={headerHidden}>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <Index />
+          </Route>
+          <Route exact path="/sign_in">
+            <SignIn />
           </Route>
         </Switch>
       </MainContainer>

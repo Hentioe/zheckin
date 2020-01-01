@@ -9,12 +9,11 @@ module Zheckin::Web::Router
     post "/sign_in" do |context|
       data = context.params.json
       api_token = data["api_token"].as(String)
+      email = data["email"].as(String)
 
       begin
         account = WrapperApi.self(api_token)
-        clubs = WrapperApi.clubs_joined(account)
-        Store.refresh_account_clubs!(account, clubs)
-
+        clubs = account.clubs_reload
         exp = Time.utc.to_unix + (60 * 60 * 24 * 30) # 30天
         payload = {"account_id" => account.id, "exp" => exp, "iat" => Time.utc.to_unix}
         token = JWT.encode(payload, BASE_SECRET_KEY, JWT::Algorithm::HS256)
@@ -26,7 +25,13 @@ module Zheckin::Web::Router
         )
         context.response.cookies << token_cookie
 
-        json_success(context, token: token, account: account)
+        unless email.empty?
+          Store.update_account!(account, {:email => email})
+        end
+
+        pp email
+
+        json_success(context, token: token, account: account, clubs: clubs.size > 0 ? clubs : nil, email_setted: !account.email.includes?("*"))
       rescue e : Crest::NotFound | Crest::Unauthorized
         json_error(context, "无效的认证令牌", status_code: 401)
       rescue e : Crest::RequestFailed
