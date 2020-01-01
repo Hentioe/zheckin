@@ -200,15 +200,15 @@ describe Zheckin do
 
   describe Zheckin::Web do
     describe Zheckin::Web::Router do
-      post "/sign_in", headers: with_json, body: {api_token: "[INVALID_API_TOKEN]"}.to_json
+      post "/sign_in", headers: with_json, body: {api_token: "[INVALID_API_TOKEN]", email: ""}.to_json
       response.status.should eq(HTTP::Status::UNAUTHORIZED)
       sign_in_resp_json = JSON.parse(response.body)
       sign_in_resp_json["error"].as_h["msg"].as_s.should eq("无效的认证令牌")
 
-      post "/sign_in", headers: with_json, body: {api_token: zhihu_api_token}.to_json
+      post "/sign_in", headers: with_json, body: {api_token: zhihu_api_token, email: ""}.to_json
       response.status.should eq(HTTP::Status::OK)
       sign_in_resp_json = JSON.parse(response.body)
-      token = sign_in_resp_json["token"].as_s
+      token = sign_in_resp_json["data"].as_h["token"].as_s
 
       describe Zheckin::Web::Router::Page do
         it "render /" do
@@ -232,35 +232,35 @@ describe Zheckin do
           put "/console/api/accounts/refresh_joined_clubs", headers: with_auth(token)
           response.status.should eq(HTTP::Status::OK)
           json = JSON.parse(response.body)
-          (json["clubs"].size > 0).should be_true
+          (json["data"].as_h["clubs"].size > 0).should be_true
         end
 
         it "post /clubs/:id/checkin" do
           post "/console/api/clubs/1180068365795840000/checkin", headers: with_auth(token)
           response.status.should eq(HTTP::Status::OK)
           json = JSON.parse(response.body)
-          json["history"].as_h["club_id"].as_s.should eq("1180068365795840000")
+          json["data"].as_h["history"].as_h["club_id"].as_s.should eq("1180068365795840000")
         end
 
         it "post /clubs/checkin_all" do
           post "/console/api/clubs/checkin_all", headers: with_auth(token)
           response.status.should eq(HTTP::Status::OK)
           json = JSON.parse(response.body)
-          (json["histories"].as_a.size > 0).should be_true
+          (json["data"].as_h["histories"].as_a.size > 0).should be_true
         end
 
         it "get /histories/today" do
           get "/console/api/histories/today", headers: with_auth(token)
           response.status.should eq(HTTP::Status::OK)
           json = JSON.parse(response.body)
-          (json["histories"].as_a.size > 0).should be_true
+          (json["data"].as_h["histories"].as_a.size > 0).should be_true
         end
 
         it "get /histories/clubs/:id" do
           get "/console/api/histories/clubs/1180068365795840000?limit=1", headers: with_auth(token)
           response.status.should eq(HTTP::Status::OK)
           json = JSON.parse(response.body)
-          json["histories"].as_a.size.should eq(1)
+          json["data"].as_h["histories"].as_a.size.should eq(1)
         end
       end
     end
