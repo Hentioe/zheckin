@@ -4,24 +4,20 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>知乎云签到 - ZheckIn</title>
+    <title>知乎云签到 / 后台 - ZheckIn</title>
     <link
       rel="stylesheet"
-      href="<%= Digests.logical_path(%{/css/user.css}) %>"
+      href="<%= Digests.logical_path(%{/css/console.css}) %>"
     />
   </head>
   <body>
     <div id="app"></div>
     <script>
-      <% if account_id = context.account_id? %>
-        var CURRENT_USER = <%= {account_id: account_id}.to_json %>;
-      <% else %>
-        var CURRENT_USER = null
-      <% end %>
+      var CURRENT_USER = <%= context.get("account").as(Model::Account).to_json %>;
     </script>
     <script
       type="text/javascript"
-      src="<%= Digests.logical_path(%{/js/user.js}) %>"
+      src="<%= Digests.logical_path(%{/js/console.js}) %>"
     ></script>
   </body>
 </html>
