@@ -23,6 +23,12 @@ module Zheckin::Web::Router
       end
     end
 
+    get "/clubs/joined" do |context|
+      account = context.get("account").as(Model::Account)
+
+      json_success(context, clubs: account.clubs_reload)
+    end
+
     post "/clubs/:id/checkin" do |context|
       club_id = context.params.url["id"]
       account = context.get("account").as(Model::Account)
