@@ -181,11 +181,10 @@ export default () => {
             msg: `准备跳转到控制台……`
           })
         );
-        // 直接跳转
-        // setTimeout(() => {
-        //   location.reload();
-        // }, 500);
-        console.log("done");
+        直接跳转;
+        setTimeout(() => {
+          location.reload();
+        }, 500);
       }
     }
   };
