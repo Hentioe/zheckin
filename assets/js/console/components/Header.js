@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useSWR from "swr";
 import unfetch from "unfetch";
 
-const Item = ({ iconUrl, text }) => {
+const Item = ({ to, iconUrl, text }) => {
   return (
-    <a
-      className="px-4 py-2 m-2 rounded-full hover:bg-blue-200 flex items-center"
-      href="#"
+    <Link
+      className="px-4 py-2 m-2 rounded-full hover:bg-blue-200 flex items-center flex-no-wrap"
+      to={to}
     >
       <img
         className="flex-initial h-10 w-10 rounded-full inline"
@@ -14,7 +15,7 @@ const Item = ({ iconUrl, text }) => {
       />
       {text && (
         <span
-          className="ml-4 text-xl font-medium"
+          className="hidden md:inline ml-4 text-xl font-medium"
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -24,7 +25,7 @@ const Item = ({ iconUrl, text }) => {
           {text}
         </span>
       )}
-    </a>
+    </Link>
   );
 };
 
@@ -42,10 +43,16 @@ export default ({ className }) => {
     <header className={className}>
       <Item
         iconUrl={CURRENT_USER.avatar.replace("{size}", "im")}
-        text="个人资料"
+        text="个人设置"
+        to="/console/settings"
       />
       {clubs.map(club => (
-        <Item key={club.id} iconUrl={club.avatar} text={club.name} />
+        <Item
+          key={club.id}
+          to={`/console/histories/clubs/${club.id}`}
+          iconUrl={club.avatar.replace("pic3.zhimg.com", "pic1.zhimg.com")}
+          text={club.name}
+        />
       ))}
     </header>
   );
