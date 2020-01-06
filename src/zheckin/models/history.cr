@@ -26,5 +26,7 @@ module Zheckin::Model
 
     belongs_to :account, Account
     belongs_to :club, Club
+
+    def_clone
   end
 end

@@ -9,6 +9,7 @@ module Zheckin::Model
       email: String,
       avatar: String,
       api_token: String,
+      enabled: Bool,
       created_at: Time?,
       updated_at: Time?
     )
@@ -26,6 +27,8 @@ module Zheckin::Model
       avatar: String,
       # 认证令牌
       api_token: String,
+      # 是否启用签到
+      enabled: Bool,
 
       created_at: Time?,
       updated_at: Time?,
@@ -33,5 +36,7 @@ module Zheckin::Model
 
     has_many :histories, History
     has_and_belongs_to_many :clubs, Club
+
+    def_clone
   end
 end

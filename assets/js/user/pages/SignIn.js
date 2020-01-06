@@ -181,9 +181,8 @@ export default () => {
             msg: `准备跳转到控制台……`
           })
         );
-        直接跳转;
         setTimeout(() => {
-          location.reload();
+          location.href = "/console";
         }, 500);
       }
     }

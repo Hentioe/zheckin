@@ -32,6 +32,7 @@ describe Zheckin do
       :name      => "绅士喵",
       :email     => "me@bluerain.io",
       :avatar    => "https://pic4.zhimg.com/v2-654375a3519dcc4e478f88e206ceb695_{size}.jpg",
+      :enabled   => true,
     }
 
     begin

@@ -23,6 +23,18 @@ module Zheckin::Web::Router
       end
     end
 
+    put "/accounts/disabled" do |context|
+      account = context.get("account").as(Model::Account)
+
+      begin
+        Store.update_account!(account, {:enabled => !account.enabled})
+
+        json_success(context, account: account)
+      rescue e
+        json_error(context, e.message || e.to_s)
+      end
+    end
+
     get "/clubs/joined" do |context|
       account = context.get("account").as(Model::Account)
 

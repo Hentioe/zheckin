@@ -40,5 +40,16 @@ module Zheckin::Web::Router
         json_error(context, e.message || e.to_s)
       end
     end
+
+    get "/logout" do |context|
+      token_cookie = HTTP::Cookie.new(
+        name: "token",
+        value: "",
+        expires: Time.utc(1970, 1, 1)
+      )
+
+      context.response.cookies << token_cookie
+      context.redirect "/"
+    end
   end
 end

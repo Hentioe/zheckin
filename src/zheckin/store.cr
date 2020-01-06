@@ -16,7 +16,7 @@ module Zheckin::Store
   end
 
   macro changed_columns(model, data, fields)
-    %changed_columns = {} of Symbol => String
+    %changed_columns = {} of Symbol => String | Bool
     {% for field in fields %}
       if (%change = {{data}}[{{field}}]?) && {{model}}.{{field.id}} != %change
         %changed_columns[{{field}}] = {{data}}[{{field}}]
@@ -72,6 +72,9 @@ module Zheckin::Store
         end
         account
       else
+        if data[:enabled]? == nil
+          data = data.merge({:enabled => true})
+        end
         create!(data)
       end
     end
@@ -89,7 +92,7 @@ module Zheckin::Store
 
     def self.refresh_clubs!(account : Account, clubs : Array(Model::Club))
       Jennifer::Adapter.adapter.transaction do
-        account.clubs_reload.each { |club| account.remove_clubs(club) }
+        account.clubs_reload.clone.each { |club| account.remove_clubs(club) }
         clubs.each { |club| account.add_clubs(club) }
       end
     end

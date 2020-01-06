@@ -1,13 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  clubs: [],
+  menuTitle: "无操作"
+};
 
 const rootSlice = createSlice({
   name: "root",
   initialState,
-  reducers: {}
+  reducers: {
+    setClubs: (state, action) =>
+      Object.assign({}, state, { clubs: action.payload }),
+    setMenuTitle: (state, action) =>
+      Object.assign({}, state, { menuTitle: action.payload })
+  }
 });
 
-export const {} = rootSlice.actions;
+export const { setClubs, setMenuTitle } = rootSlice.actions;
 
 export default rootSlice.reducer;

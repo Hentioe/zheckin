@@ -30,5 +30,7 @@ module Zheckin::Model
 
     has_many :histories, History
     has_and_belongs_to_many :accounts, Account
+
+    def_clone
   end
 end

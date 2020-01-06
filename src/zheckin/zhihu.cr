@@ -43,7 +43,7 @@ module Zheckin::Zhihu
       account_data = {
         :id        => json["id"].as_s,
         :url_token => json["url_token"].as_s,
-        :name      => json["url_token"].as_s,
+        :name      => json["name"].as_s,
         :email     => json["email"].as_s,
         :avatar    => json["avatar_url_template"].as_s,
         :api_token => api_token,
