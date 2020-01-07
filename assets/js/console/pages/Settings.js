@@ -147,7 +147,7 @@ export default () => {
   return (
     <div className="bg-gray-200">
       <Properties title="个人资料">
-        <TextProperty title="用户名" text={url_token} />
+        <TextProperty title="个性域名" text={url_token} />
         <TextProperty title="姓名" text={name} />
         <TextProperty title="邮箱" text={email} />
         <TextProperty title="已加入圈子" text={`${clubs.length} 个`} />

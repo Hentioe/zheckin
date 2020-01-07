@@ -150,7 +150,8 @@ module Zheckin::Store
 
     def self.today_list(account_id : String? = nil, club_id : String? = nil)
       now = Time.utc
-      midnight_twelve = Time.utc(now.year, now.month, now.day, 0, 0, 0)
+      offset_seconds = Time.local.offset
+      midnight_twelve = Time.utc(now.year, now.month, now.day, 0, 0, 0) - offset_seconds.seconds
 
       case {account_id, club_id}
       when {nil, nil}
