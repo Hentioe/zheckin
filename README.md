@@ -6,11 +6,9 @@ ZheckIn 是 Zhihu 和 Check-In 的合并词，是一个用于托管「知乎圈�
 
 ## 介绍
 
-本项目使用原生语言 Crystal 和嵌入式数据库 Sqlite3 开发，占用极低，部署方便。你可以通过以下的方式自行部署，也可以选择直接使用[官方](https://zheckin.bluerain.io)（作者提供）服务。
+本项目使用原生语言 Crystal 和嵌入式数据库 Sqlite3 开发，占用极低，部署方便。直接使用[官方](https://zheckin.bluerain.io)服务（作者提供），也可按照以下教程自行部署。
 
 ## 部署
-
-为了方便，请直接使用 DokcerHub 上的官方镜像。
 
 1. 创建 `.env` 文件，写入以下必要变量：
 
@@ -30,8 +28,8 @@ ZheckIn 是 Zhihu 和 Check-In 的合并词，是一个用于托管「知乎圈�
 
    ZHECKIN_ZHIHU_API_TOKEN 变量中储存的认证令牌并不参与签到，它主要有两个目的：
 
-   1. 管理员身份凭证
-   1. 额外的 API 调用需要
+   - 管理员身份凭证
+   - 额外的 API 调用需要
 
 2. 创建 `docker-compose.yml` 文件：
 
