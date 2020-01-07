@@ -35,6 +35,17 @@ module Zheckin::Web::Router
       end
     end
 
+    put "/accounts/api_token/revoke" do |context|
+      account = context.get("account").as(Model::Account)
+
+      begin
+        Zhihu::WrapperApi.logout(account)
+        json_success(context)
+      rescue e
+        json_error(context, e.message || e.to_s)
+      end
+    end
+
     get "/clubs/joined" do |context|
       account = context.get("account").as(Model::Account)
 

@@ -72,10 +72,12 @@ const SwitchProperty = ({ title, text, checked, onChange = _ => {} }) => {
 const { url_token, name, email } = CURRENT_USER;
 
 const INITIAL = {
-  SYNC_CLUBS_MSG: "立即同步已经加入的圈子列表",
+  SYNC_CLUBS_MSG: "立即同步已加入的圈子列表",
   CHECKIN_DISABLE_MSG_HINT: "暂停自动签到服务",
   CHECKIN_DISABLING_MSG: "正在禁用签到……",
-  CHECKIN_ENABLING_MSG: "正在启用签到……"
+  CHECKIN_ENABLING_MSG: "正在启用签到……",
+  TOKEN_REVOKE_HINT: "废弃认证令牌，保护帐号安全",
+  TOKEN_REVOKING: "令牌吊销中……"
 };
 
 export default () => {
@@ -114,8 +116,23 @@ export default () => {
       });
   };
 
+  const [tokenRevokeProperty, setTokenRevokeProperty] = useState({
+    loading: false,
+    msg: INITIAL.TOKEN_REVOKE_HINT
+  });
+
   const handleRevokeToken = _ => {
-    console.log("revoking...");
+    setTokenRevokeProperty(
+      Object.assign({}, tokenRevokeProperty, {
+        loading: true,
+        msg: INITIAL.TOKEN_REVOKING
+      })
+    );
+    unfetch("/console/api/accounts/api_token/revoke", { method: "PUT" })
+      .then(r => r.json())
+      .then(_ => {
+        location.href = "/logout";
+      });
   };
 
   const [syncClubsProperty, setSyncClubsProperty] = useState({
@@ -170,7 +187,7 @@ export default () => {
         <PropertyBox
           clickable
           title="注销登录"
-          text="注销本站登录状态，不影响认证令牌有效性"
+          text="登出本站，不影响认证令牌有效性"
           onClick={() => {
             location.href = "/logout";
           }}
@@ -179,7 +196,7 @@ export default () => {
           dangerous
           clickable
           title="吊销令牌"
-          text="让令牌失效，可能影响其它端的登录状态"
+          text={tokenRevokeProperty.msg}
           onClick={handleRevokeToken}
         />
       </Properties>

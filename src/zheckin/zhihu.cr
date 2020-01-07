@@ -33,6 +33,14 @@ module Zheckin::Zhihu
 
       Crest.post(endpoint, headers: headers, logging: LOGGING)
     end
+
+    LOGOUT_ENDPOINT = "https://www.zhihu.com/logout"
+
+    def self.logout(api_token : String)
+      headers = BASE_HEADERS.merge({"Cookie" => "z_c0=#{api_token}"})
+
+      Crest.get(LOGOUT_ENDPOINT, headers: headers, max_redirects: 0, logging: LOGGING)
+    end
   end
 
   module WrapperApi
@@ -110,6 +118,14 @@ module Zheckin::Zhihu
     def self.clubs_checkin_all(account : Model::Account) : Array(Model::History)
       account.clubs_reload.map do |club|
         clubs_checkin(account, club.id.not_nil!)
+      end
+    end
+
+    def self.logout(account : Model::Account)
+      begin
+        RawApi.logout(account.api_token)
+      rescue Crest::Found
+        Store.update_account!(account, {:api_token => "[revoked]", :enabled => false})
       end
     end
   end
