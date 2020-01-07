@@ -86,7 +86,7 @@ export default () => {
     dispatch(setMenuTitle("设置页面"));
   }, []);
 
-  const [checkinDisabled, setCheckinDisabled] = useState(CURRENT_USER.enabled);
+  const [checkinDisabled, setCheckinDisabled] = useState(!CURRENT_USER.enabled);
   const [checkinDisableProperty, setCheckinDisableProperty] = useState({
     loading: false,
     msg: INITIAL.CHECKIN_DISABLE_MSG_HINT
@@ -110,7 +110,7 @@ export default () => {
             msg: INITIAL.CHECKIN_DISABLE_MSG_HINT
           })
         );
-        setCheckinDisabled(json.data.account.enabled);
+        setCheckinDisabled(!json.data.account.enabled);
       });
   };
 

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import clsx from "clsx";
 
+import todayPNG from "../../res/today.png";
+
 const _Item = styled(Link).attrs(({ selected }) => ({
   className: clsx(
     ["px-4", "py-2", "m-2"], // 间距
@@ -48,6 +50,13 @@ export default ({ className }) => {
         to="/console/settings"
         selected={`/console/settings` === location.pathname}
       />
+      <Item
+        iconUrl={todayPNG}
+        text="今日签到"
+        to="/console/today"
+        selected={"/console/today" === location.pathname}
+      />
+      <hr />
       {clubs.map(club => (
         <Item
           key={club.id}
