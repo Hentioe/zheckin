@@ -112,7 +112,7 @@ export default () => {
       <Index>
         <HeroSection>
           <div className="flex flex-wrap">
-            <div className="w-full md:w-7/12">
+            <div className="w-full md:w-7/12 z-10">
               <HeroTitle>知乎云签到</HeroTitle>
               <HeroText>
                 <p>
@@ -137,7 +137,7 @@ export default () => {
                 <NavButton>私有部署</NavButton>
               </NavButtonSection>
             </div>
-            <div className="hidden md:w-5/12 md:flex md:justify-center">
+            <div className="hidden md:w-5/12 md:flex md:justify-center z-0">
               {/* 留空 */}
               <img
                 style={{ height: 450, transform: "rotate3d(1, 1, 1, -35deg)" }}
