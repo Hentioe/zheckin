@@ -73,7 +73,7 @@ module Zheckin::Web::Router
       account = context.get("account").as(Model::Account)
 
       histories = Store.find_histories(account_id: account.id, club_id: club_id, offset: offset.to_i, limit: limit.to_i)
-      json_success(context, histories: histories)
+      json_success(context, club: Store::Club.get(club_id), histories: histories)
     end
   end
 end
