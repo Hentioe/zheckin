@@ -223,7 +223,7 @@ describe Zheckin do
         end
 
         it "render console" do
-          get "/console"
+          get "/console", headers: with_json
           response.status.should eq(HTTP::Status::UNAUTHORIZED)
         end
       end

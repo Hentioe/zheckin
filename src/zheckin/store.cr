@@ -47,8 +47,17 @@ module Zheckin::Store
   impl :account, options: {:primary_type => String} do
     REQUIRE_FIELDS = %i(url_token name avatar api_token)
 
-    def self.find_list
-      Account.all.to_a
+    def self.find_list(enabled : Bool? = nil)
+      query = Account.all
+
+      query =
+        if enabled
+          query.where { _enabled == enabled }
+        else
+          query
+        end
+
+      query.to_a
     end
 
     def self.create!(data : Hash, clubs = Array(Model::Club).new)

@@ -17,12 +17,14 @@ module Zheckin::Cron
   private def self.start
     Logging.info "checkin started"
 
-    # 获取个人资料并刷新圈子列表
-    account = Zhihu::WrapperApi.self(SELF_API_TOKEN)
-    clubs = Zhihu::WrapperApi.clubs_joined(account)
-    Store.refresh_account_clubs!(account, clubs)
-    # 开始签到
-    Zhihu::WrapperApi.clubs_checkin_all(account)
+    Store.find_accounts(enabled: true).each do |account|
+      begin
+        # 开始签到
+        Zhihu::WrapperApi.clubs_checkin_all(account)
+      rescue e
+        Logging.error e.message || e.to_s
+      end
+    end
 
     Logging.info "checkin done"
   end

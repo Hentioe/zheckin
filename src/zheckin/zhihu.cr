@@ -125,7 +125,7 @@ module Zheckin::Zhihu
       begin
         RawApi.logout(account.api_token)
       rescue Crest::Found
-        Store.update_account!(account, {:api_token => "[revoked]", :enabled => false})
+        Store.update_account!(account, {:api_token => "[REVOKED]", :enabled => false})
       end
     end
   end
