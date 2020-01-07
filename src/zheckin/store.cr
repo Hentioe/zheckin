@@ -148,23 +148,27 @@ module Zheckin::Store
       History.all.to_a
     end
 
+    OFFSET_SECONDS = Time.local.offset.seconds
+
     def self.today_list(account_id : String? = nil, club_id : String? = nil)
       now = Time.utc
-      offset_seconds = Time.local.offset
-      midnight_twelve = Time.utc(now.year, now.month, now.day, 0, 0, 0) - offset_seconds.seconds
+      midnight_twelve = Time.utc(now.year, now.month, now.day, 0, 0, 0) - OFFSET_SECONDS
 
-      case {account_id, club_id}
-      when {nil, nil}
-        History.where { _created_at >= midnight_twelve }.to_a
-      when {account_id, nil}
-        History.where { (_account_id == account_id.not_nil!) & (_created_at >= midnight_twelve) }.to_a
-      when {nil, club_id}
-        History.where { (_club_id == club_id.not_nil!) & (_created_at >= midnight_twelve) }.to_a
-      else
-        History.where {
-          (_account_id == account_id.not_nil!) & (_club_id == club_id.not_nil!) & (_created_at >= midnight_twelve)
-        }.to_a
-      end
+      query =
+        case {account_id, club_id}
+        when {nil, nil}
+          History.where { _created_at >= midnight_twelve }
+        when {account_id, nil}
+          History.where { (_account_id == account_id.not_nil!) & (_created_at >= midnight_twelve) }
+        when {nil, club_id}
+          History.where { (_club_id == club_id.not_nil!) & (_created_at >= midnight_twelve) }
+        else
+          History.where {
+            (_account_id == account_id.not_nil!) & (_club_id == club_id.not_nil!) & (_created_at >= midnight_twelve)
+          }
+        end
+
+      query.order(updated_at: :desc).to_a
     end
 
     def self.find_list(account_id : String? = nil, club_id : String? = nil, offset = 0, limit = 999)
@@ -180,7 +184,7 @@ module Zheckin::Store
           History.where { (_account_id == account_id.not_nil!) & (_club_id == club_id.not_nil!) }
         end
 
-      query.offset(offset).limit(limit).to_a
+      query.order(updated_at: :desc).offset(offset).limit(limit).to_a
     end
   end
 end
