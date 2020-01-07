@@ -19,7 +19,7 @@ export default ({ children }) => {
         <div className="border-b p-4">
           <h1 className="text-xl font-bold">{menuTitle}</h1>
         </div>
-        <div className="bg-gray-200">{children}</div>
+        <div>{children}</div>
       </main>
     </div>
   );

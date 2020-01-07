@@ -12,7 +12,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 // 导入页面和组件
 import { PageContainer } from "./console/components";
-import { Settings } from "./console/pages";
+import { Settings, Today } from "./console/pages";
 
 // 创建 Redux store
 import Reducers from "./console/reducers";
@@ -32,6 +32,9 @@ const Root = () => {
         <Switch>
           <Route exact path="/console/settings">
             <Settings />
+          </Route>
+          <Route exact path="/console/today">
+            <Today />
           </Route>
         </Switch>
       </PageContainer>

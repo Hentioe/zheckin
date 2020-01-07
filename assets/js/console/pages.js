@@ -1,3 +1,4 @@
 import Settings from "./pages/Settings";
+import Today from "./pages/Today";
 
-export { Settings };
+export { Settings, Today };

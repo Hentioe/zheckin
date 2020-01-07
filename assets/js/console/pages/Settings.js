@@ -145,7 +145,7 @@ export default () => {
   }, [clubs]);
 
   return (
-    <div>
+    <div className="bg-gray-200">
       <Properties title="个人资料">
         <TextProperty title="用户名" text={url_token} />
         <TextProperty title="姓名" text={name} />

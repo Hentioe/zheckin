@@ -59,7 +59,10 @@ module Zheckin::Web::Router
     get "/histories/today" do |context|
       account = context.get("account").as(Model::Account)
 
-      histories = Store.today_histories(account_id: account.id)
+      histories = Store.today_histories(account_id: account.id).map do |h|
+        h.club_reload
+        h
+      end
       json_success(context, histories: histories)
     end
 

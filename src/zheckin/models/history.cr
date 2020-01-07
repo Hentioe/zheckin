@@ -7,6 +7,7 @@ module Zheckin::Model
       msg: String,
       account_id: String,
       club_id: String,
+      club: Club,
       created_at: Time?,
       updated_at: Time?
     )

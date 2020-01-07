@@ -19,7 +19,7 @@ module Zheckin::Web::Router
 
   resources :page do
     def_index_routes ["/", "/sign_in"]
-    def_console_routes ["/console/settings", "/console/histories/clubs/:id"]
+    def_console_routes ["/console/settings", "/console/today", "/console/histories/clubs/:id"]
 
     get "/console" do |context|
       context.redirect "/console/settings"
