@@ -84,11 +84,11 @@ const Card = styled.div.attrs(() => ({
 }))``;
 
 const CardHeader = styled.header.attrs(() => ({
-  className: clsx("border-b border-gray-400 p-4 text-xl")
+  className: clsx("border-b border-gray-400 p-4 text-base")
 }))``;
 
 const CardContent = styled.header.attrs(() => ({
-  className: clsx("p-6 text-gray-600 text-sm md:text-base")
+  className: clsx("p-6 text-gray-600 text-sm")
 }))``;
 
 export default () => {

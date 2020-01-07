@@ -9,7 +9,7 @@ import forSaleSVG from "../../res/for_sale.svg";
 import serverSVG from "../../res/server.svg";
 import securitySVG from "../../res/security.svg";
 import zheckinPNG from "../../res/zheckin.png";
-import screenshotPNG from "../../res/screenshot.png";
+import screenshotJPG from "../../res/screenshot.jpg";
 
 const Index = styled.div.attrs(() => ({
   className: clsx()
@@ -126,13 +126,24 @@ export default () => {
                 </p>
               </HeroText>
               <NavButtonSection>
-                <NavButton className="mr-4">使用服务</NavButton>
+                <NavButton
+                  className="mr-4"
+                  onClick={() => {
+                    location.href = "/console";
+                  }}
+                >
+                  使用服务
+                </NavButton>
                 <NavButton>私有部署</NavButton>
               </NavButtonSection>
             </div>
-            <div className="hidden md:w-5/12 md:flex md:justify-end">
+            <div className="hidden md:w-5/12 md:flex md:justify-center">
               {/* 留空 */}
-              <img style={{ height: 450 }} src={screenshotPNG} />
+              <img
+                style={{ height: 450, transform: "rotate3d(1, 1, 1, -35deg)" }}
+                src={screenshotJPG}
+                className="rounded-lg shadow-xl"
+              />
             </div>
           </div>
         </HeroSection>

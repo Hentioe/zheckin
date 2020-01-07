@@ -10,10 +10,12 @@ module Zheckin::Web
       if account = Store::Account.get(context.account_id?)
         context.set "account", account
         call_next context
-      else
+      elsif (content_type = context.request.headers["Content-Type"]?) && content_type.includes?("application/json")
         json = Router.json_unauthorized(context)
         context.response.print json
         context.response.close
+      else
+        context.redirect "/sign_in"
       end
     end
   end
