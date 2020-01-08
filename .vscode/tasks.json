@@ -9,8 +9,6 @@
       "command": "crystal",
       "options": {
         "env": {
-          "ZHECKIN_ADMIN_EMAIL": "zheckin@bluerain.io",
-          "ZHECKIN_ADMIN_PASSWORD": "demo123",
           "ZHECKIN_BASE_SECRET_KEY": "secret123"
         }
       },
