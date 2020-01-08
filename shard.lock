@@ -10,7 +10,7 @@ shards:
 
   crest:
     github: mamantoha/crest
-    version: 0.23.1
+    version: 0.23.2
 
   db:
     github: crystal-lang/crystal-db
@@ -46,7 +46,7 @@ shards:
 
   jennifer:
     github: Hentioe/jennifer.cr
-    commit: ac7b7f9597de97e646e6e43bc9a9e4db7db9fe2c
+    commit: 78ac5b8cc716600f8559b1ab17a6f261e8d4473c
 
   jennifer_sqlite3_adapter:
     github: Hentioe/jennifer_sqlite3_adapter

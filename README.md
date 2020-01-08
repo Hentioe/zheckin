@@ -2,7 +2,7 @@
 
 [![Build Status](https://cloud.drone.io/api/badges/Hentioe/zheckin/status.svg)](https://cloud.drone.io/Hentioe/zheckin)
 
-ZheckIn 是 Zhihu 和 Check-In 的合并词，是一个用于托管「知乎圈子」自动签到的程序。
+ZheckIn 是 Zhihu 和 Check-In 的合并词，一个用于托管「知乎圈子」自动签到的程序。
 
 ## 介绍
 
@@ -10,7 +10,7 @@ ZheckIn 是 Zhihu 和 Check-In 的合并词，是一个用于托管「知乎圈�
 
 ## 部署
 
-1. 创建 `.env` 文件，写入以下必要变量：
+1. 创建 `.env` 文件，写入必要变量：
 
    ```env
    ZHECKIN_ZHIHU_API_TOKEN="<Your_Zhihu_API_Token>"
@@ -24,7 +24,7 @@ ZheckIn 是 Zhihu 和 Check-In 的合并词，是一个用于托管「知乎圈�
    - ZHECKIN_ZHIHU_API_TOKEN: 知乎 Cookie 中的 "z_c0" 的值，用于认证身份（以下称“认证令牌”）。更多说明和提取方法请看[登入页面](https://zheckin.bluerain.io/sign_in)。
    - ZHECKIN_BASE_SECRET_KEY: 密钥，用于签名登录信息，它和 ZheckIn 内部帐号认证有关，和知乎的登录认证无关。通常使用较长的随机 Hash 字符串。
    - ZHECKIN_SCHEDULE_HOUR: 定时签到的时间（小时），24 小时制。
-   - ZHECKIN_SCHEDULE_MINUTE: 定时签到的分钟。上面的模板内容指的是 00:15 分定时签到
+   - ZHECKIN_SCHEDULE_MINUTE: 定时签到的时间（分钟）。上面的模板内容指的是 00:15 分定时签到。
 
    ZHECKIN_ZHIHU_API_TOKEN 变量中储存的认证令牌并不参与签到，它主要有两个目的：
 
@@ -43,14 +43,15 @@ ZheckIn 是 Zhihu 和 Check-In 的合并词，是一个用于托管「知乎圈�
      ports:
        - 8080:8080
      environment:
-     ZHECKIN_ZHIHU_API_TOKEN: "${ZHECKIN_ZHIHU_API_TOKEN}"
-     ZHECKIN_BASE_SECRET_KEY: "${ZHECKIN_BASE_SECRET_KEY}"
-     ZHECKIN_SCHEDULE_HOUR: "${ZHECKIN_SCHEDULE_HOUR}"
-     ZHECKIN_SCHEDULE_MINUTE: "${ZHECKIN_SCHEDULE_MINUTE}"
+       TZ: Asia/Shanghai
+       ZHECKIN_ZHIHU_API_TOKEN: "${ZHECKIN_ZHIHU_API_TOKEN}"
+       ZHECKIN_BASE_SECRET_KEY: "${ZHECKIN_BASE_SECRET_KEY}"
+       ZHECKIN_SCHEDULE_HOUR: "${ZHECKIN_SCHEDULE_HOUR}"
+       ZHECKIN_SCHEDULE_MINUTE: "${ZHECKIN_SCHEDULE_MINUTE}"
      restart: always
    ```
 
-   注意，您不需要自行构建镜像。`bluerain/zheckin` 是已存在于 DockerHub 的官方镜像。
+   注意，您不需要自行构建镜像，`bluerain/zheckin` 是已存在于 DockerHub 的官方镜像。TZ 变量表示时区，一般不需要修改。
 
 3. 启动服务：
 
