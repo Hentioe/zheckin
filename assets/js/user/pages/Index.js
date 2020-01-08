@@ -134,7 +134,14 @@ export default () => {
                 >
                   使用服务
                 </NavButton>
-                <NavButton>私有部署</NavButton>
+                <NavButton
+                  onClick={() => {
+                    location.href =
+                      "https://github.com/Hentioe/zheckin#%E9%83%A8%E7%BD%B2";
+                  }}
+                >
+                  私有部署
+                </NavButton>
               </NavButtonSection>
             </div>
             <div className="hidden md:w-5/12 md:flex md:justify-center z-0">
