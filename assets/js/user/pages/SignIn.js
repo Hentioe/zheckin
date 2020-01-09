@@ -142,7 +142,7 @@ export default () => {
   const handleLoginResult = json => {
     if (json.error) {
       setLoginResult(
-        Object.assign({}, loginResult, { ok: false, msg: data.error.msg })
+        Object.assign({}, loginResult, { ok: false, msg: json.error.msg })
       );
     } else {
       const { account, email_setted, clubs } = json.data;
